@@ -1,0 +1,181 @@
+/* Adicionando a fonte Roboto do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --cor-primaria: #4CAF50;
+  --cor-secundaria: #367c39;
+  --cor-fundo: #121212;
+  --cor-texto: #FFFFFF;
+  --fonte-primaria: 'Roboto', sans-serif;
+}
+
+body {
+  font-family: var(--fonte-primaria);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #1c1c1c;
+  border-bottom: 3px solid var(--cor-primaria);
+}
+
+.light-theme {
+  background-color: #FFFFFF; /* Branco Completo */
+  color: #2C2F33; /* Cinza Escuro */
+}
+
+.theme-toggle {
+  cursor: pointer;
+}
+
+.dark-theme {
+  background-color: #23272A; /* Preto Quase */
+  color: var(--cor-texto);
+}
+
+.card-title{
+    color: rgb(0, 247, 0);
+}
+
+.card {
+  background-color: transparent;
+  border: none;
+}
+
+.card img {
+  width: 300px;
+}
+
+.poltrona-numero {
+  display: block;
+  text-align: center;
+}
+
+.modal-title, #total {
+  color: #2C2F33;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:focus, button:focus {
+  outline: 3px solid var(--cor-primaria);
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.card-text {
+    color: var(--cor-secundaria);
+}
+
+@media (max-width: 767px) {
+  .carousel-caption {
+    left: 10%;
+    font-size: 0.9rem;
+  }
+  .carousel-caption h5 {
+    font-size: 1.5rem;
+  }
+  .carousel-caption p {
+    font-size: 1rem;
+  }
+  .card img {
+    width: 100%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cor-fundo);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cor-primaria);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cor-secundaria);
+}
+
+/* Estilos adicionais para os horários dos filmes */
+.filme-horarios {
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.filme-horarios ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.filme-horarios li {
+    background-color: var(--cor-secundaria); /* Cor de fundo para cada item da lista */
+    color: var(--cor-texto); /* Cor do texto */
+    padding: 10px; /* Espaçamento interno */
+    margin-bottom: 5px; /* Espaço entre os itens da lista */
+    border-radius: 5px; /* Bordas arredondadas */
+    text-align: center; /* Texto centralizado */
+    transition: background-color 0.3s; /* Transição suave para o hover */
+    list-style: none;
+  }
+  
+  .filme-horarios li:hover {
+    background-color: var(--cor-primaria); /* Cor de fundo ao passar o mouse */
+    color: #FFFFFF; /* Cor do texto ao passar o mouse */
+    cursor: pointer; /* Cursor do mouse como ponteiro */
+  }
+
+  .filme-horarios a {
+  color: var(--cor-texto); /* Define a cor do texto para a cor primária */
+  text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.filme-horarios a:hover {
+  color: var(--cor-secundaria); /* Cor do texto ao passar o mouse */
+  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse, opcional */
+}
+
+li {
+    color: var(--cor-primaria);
+    
+}

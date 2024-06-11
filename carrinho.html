@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EYZE PLAY - Sua plataforma de entretenimento favorita.">
+    <meta name="keywords" content="filmes, séries, entretenimento, streaming">
+    <link rel="shortcut icon" href="Img/LOGO OFICIAL.png" type="image/x-icon">
+    <title>EYZE PLAY</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+          crossorigin="anonymous">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="styles/carrinho.css">
+</head>
+<body class="dark-theme">
+
+    <!-- Cabeçalho com Bootstrap -->
+    <header class="bg-dark text-white py-3">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid justify-content-center">
+                <a class="navbar-brand" href="index.html">
+                    <img src="Img/LOGO OFICIAL.png" alt="LOGO" class="img-fluid" style="height: 90px;">
+                </a>  
+            </div>    
+        </nav>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container my-5">
+        <!-- Carrinho -->
+        <section id="carrinho" class="row g-3">
+            <!-- Card com imagem e texto lado a lado -->
+            <div class="card mb-3 w-100 dark-theme">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://image.tmdb.org/t/p/w342/rC5RqXtFoTkBhNWE1dczwi4dZrX.jpg" class="img-fluid rounded-start" alt="Garfield">
+                    </div>
+                    <div class="col-md-8 d-flex flex-column text-center justify-content-center align-items-center">
+                        <div class="card-body mt-5">
+                            <h3 class="card-title">Garfield: Fora de Casa</h3>
+                            <p class="card-text">Garfield, o amado gato de estimação, encontra-se em uma aventura selvagem ao ar livre. Após um reencontro inesperado com seu pai há muito perdido, o maltrapilho gato de rua Vic, Garfield e Odie são forçados a abandonar suas vidas mimadas. Eles se juntam a Vic em um arriscado assalto que promete muitas risadas e uma dose generosa de emoção.</p>
+                            <p class="card-text"><strong>Elenco:</strong> Chris Pratt, Samuel L. Jackson</p>
+                            <p class="card-text"><strong>Gênero:</strong> Aventura, Animação, Comédia, Família</p>
+                            <p class="card-text mt-5"><small class="text">102 minutos de duração</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- Cupom com Bootstrap -->
+        <section id="cupom" class="my-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Código do cupom">
+                <button class="btn btn-outline-secondary" type="button">Aplicar cupom</button>
+            </div>
+        </section>
+
+        <!-- Seção de Métodos de Pagamento -->
+        <section id="metodospagamento" class="my-4">
+            <div class="d-flex flex-column align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="paypal">
+                    <label class="form-check-label" for="paypal">PayPal</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="pix">
+                    <label class="form-check-label" for="pix">Pix</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard">
+                    <label class="form-check-label" for="creditCard">Cartão de Crédito/Débito</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="boleto">
+                    <label class="form-check-label" for="boleto">Boleto Bancário</label>
+                </div>
+            </div>
+            <!-- Container para o formulário de pagamento -->
+            <div id="payment-form-container"></div>
+        </section>
+
+        <!-- Botão de Finalizar Compra -->
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <h4 class="text-center">R$ 29,90</h4>
+            <button class="btn btn-primary" type="button" id="finalize-purchase">Finalizar Compra</button>
+        </div>
+    </main>
+
+    <!-- Scripts do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/13033c9605.js"></script>
+    <script src="scripts/carrinho.js"></script>
+    <script src="scripts/Jquery.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
+</html>
