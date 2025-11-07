@@ -1,163 +1,229 @@
-/* Adicionando a fonte Roboto do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
+/* =================================
+   1. Variáveis Globais e Reset
+   ================================= */
 :root {
-  --cor-primaria: #4CAF50;
-  --cor-secundaria: #367c39;
-  --cor-fundo: #121212;
-  --cor-texto: #FFFFFF;
-  --fonte-primaria: 'Roboto', sans-serif;
+    --tim-blue: #004C97;
+    --tim-blue-dark: #003366;
+    --white: #ffffff;
+    --grey-light: #f4f7f6; /* Fundo da página */
+    --grey-medium: #dfe3e6;
+    --grey-dark: #8c8c8c;
+    --text-dark: #333;
+    --success: #28a745;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: var(--fonte-primaria);
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto);
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--grey-light);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Estilos para o cabeçalho */
-header {
-  background-color: #1c1c1c;
-  border-bottom: 3px solid var(--cor-primaria);
+/* =================================
+   2. Cabeçalho
+   ================================= */
+.main-header {
+    background-color: var(--tim-blue);
+    color: var(--white);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para o tema claro */
-.light-theme {
-  background-color: #FFFFFF; /* Branco Completo */
-  color: #2C2F33; /* Cinza Escuro */
+.main-header .logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
-/* Toggle entre temas claro e escuro */
-.theme-toggle {
-  cursor: pointer;
+.main-header .logo svg {
+    margin-right: 8px;
 }
 
-/* Estilos para o tema escuro */
-.dark-theme {
-  background-color: #23272A; /* Preto Quase */
-  color: var(--cor-texto);
+.main-header .user-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
 }
 
-.carousel-caption {
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  transform: translateY(-50%);
-  z-index: 10;
-  color: var(--cor-texto);
-  text-align: center;
-  background: rgba(0, 0, 0, 0.5);
-  width: 25%;
-  height: 60%;
+.main-header .user-avatar {
+    width: 32px;
+    height: 32px;
+    background-color: var(--grey-medium);
+    color: var(--tim-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    margin-left: 10px;
 }
 
-.carousel-caption a {
-  margin-top: 7%;
-  color: var(--cor-primaria);
-  text-decoration: none;
+/* =================================
+   3. Layout Principal e Abas
+   ================================= */
+.container {
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto; /* Centra em telas maiores */
 }
 
-.carousel-caption a:hover,
-.carousel-caption a:focus {
-  color: var(--cor-secundaria);
+.tab-nav {
+    display: flex;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--grey-medium);
 }
 
-.carousel-caption h5 {
-  font-size: x-large;
-}
-
-.card {
-  background-color: transparent;
-  border: none;
-}
-
-.card img {
-  width: 300px;
-}
-
-.poltrona-numero {
-  display: block;
-  text-align: center;
-}
-
-.modal-title, #total {
-  color: #2C2F33;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-a:focus, button:focus {
-  outline: 3px solid var(--cor-primaria);
-}
-
-a:hover {
-  cursor: pointer;
-}
-
-@media (max-width: 767px) {
-  .carousel-caption {
-    left: 10%;
+.tab-link {
+    flex: 1; /* Faz as abas ocuparem espaço igual */
+    background: none;
+    border: none;
+    padding: 14px 10px;
     font-size: 0.9rem;
-  }
-  .carousel-caption h5 {
-    font-size: 1.5rem;
-  }
-  .carousel-caption p {
-    font-size: 1rem;
-  }
-  .card img {
+    font-weight: 500;
+    color: var(--grey-dark);
+    cursor: pointer;
+    text-align: center;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-link.active {
+    color: var(--tim-blue);
+    font-weight: 700;
+    border-bottom-color: var(--tim-blue);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================
+   4. Cards e Formulários
+   ================================= */
+.card {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+    margin-bottom: 24px;
+    color: var(--tim-blue);
+    font-size: 1.25rem;
+}
+
+/* Opções de Rádio (Busca) */
+.search-options {
+    margin-bottom: 20px;
+}
+.search-options h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--grey-dark);
+    margin-bottom: 12px;
+}
+.radio-group {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-bottom: 8px;
+}
+.radio-group input[type="radio"] {
+    accent-color: var(--tim-blue); /* Moderno, cor do "check" */
+}
+.radio-group label {
+    margin-left: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+/* Grupo de Input com Rótulo Flutuante */
+.input-group.floating {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.input-field {
     width: 100%;
-  }
+    padding: 14px 12px;
+    font-size: 1rem;
+    border: 1px solid var(--grey-medium);
+    border-radius: 8px;
+    background-color: var(--white);
+    transition: border-color 0.2s ease;
 }
 
-/* Scrollbar personalizado */
-::-webkit-scrollbar {
-  width: 8px;
+.input-label {
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    font-size: 1rem;
+    color: var(--grey-dark);
+    background-color: var(--white);
+    padding: 0 4px;
+    transition: all 0.2s ease-out;
+    pointer-events: none;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--cor-fundo);
+/* A mágica do rótulo flutuante */
+.input-field:focus + .input-label,
+.input-field:not(:placeholder-shown) + .input-label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--tim-blue);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--cor-primaria);
-  border-radius: 4px;
+.input-field:focus {
+    outline: none;
+    border-color: var(--tim-blue);
+    box-shadow: 0 0 0 1px var(--tim-blue);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--cor-secundaria);
+/* Botão Principal */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary {
+    background-color: var(--tim-blue);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--tim-blue-dark);
+}
+
+.btn:active {
+    transform: scale(0.98);
 }
