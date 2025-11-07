@@ -1,5 +1,5 @@
 /* =================================
-   1. Variáveis Globais e Reset (Reutilizado)
+   1. Variáveis Globais e Reset
    ================================= */
 :root {
     --tim-blue: #004C97;
@@ -11,6 +11,8 @@
     --text-dark: #333;
     --success: #28a745;
     --border-color: #eee;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -33,7 +35,7 @@ h2 {
 }
 
 /* =================================
-   2. Cabeçalho (Reutilizado)
+   2. Cabeçalho
    ================================= */
 .main-header {
     background-color: var(--tim-blue);
@@ -43,9 +45,9 @@ h2 {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    position: sticky; /* Fixo no topo */
+    position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 .main-header .logo { display: flex; align-items: center; font-weight: 700; font-size: 1.2rem; }
 .main-header .logo svg { margin-right: 8px; }
@@ -59,24 +61,37 @@ h2 {
     padding: 20px 16px;
     max-width: 600px;
     margin: 0 auto;
+    transition: max-width 0.3s ease-in-out;
 }
 
 .card {
     background-color: var(--white);
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow);
+}
+
+/* Card de contexto do cliente (sempre no topo) */
+.customer-context {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+.customer-context p { margin: 4px 0; }
+
+/* Wrapper para os passos (só afeta desktop) */
+.step-wrapper {
+    /* Por padrão, é um container simples */
 }
 
 .step {
     margin-top: 24px;
 }
-
-.customer-context {
-    font-size: 0.9rem;
-    line-height: 1.5;
+#step-1 h2, #step-2 h2 {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
 }
-.customer-context p { margin: 4px 0; }
+
 
 /* =================================
    4. Cards de Linha (PASSO 1)
@@ -88,7 +103,12 @@ h2 {
     margin-bottom: 12px;
     padding: 16px;
     cursor: pointer;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.line-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
 }
 
 .line-card.selected {
@@ -106,10 +126,20 @@ h2 {
     font-size: 1.1rem;
 }
 .line-card-header input[type="radio"] {
-    accent-color: var(--tim-blue);
-    /* Esconde o rádio, mas o JS o marcará */
-    opacity: 0.5;
-    pointer-events: none;
+    /* Esconde visualmente o rádio, mas mantém funcional */
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Mostra um "check" fake quando selecionado */
+.line-card.selected .line-card-header::after {
+    content: '✔';
+    color: var(--white);
+    background-color: var(--success);
+    font-size: 0.8rem;
+    padding: 4px 6px;
+    border-radius: 50%;
 }
 
 .line-card-body {
@@ -140,24 +170,21 @@ h2 {
 /* =================================
    5. Abas e Acordeão de Serviço (PASSO 2)
    ================================= */
-
-/* Abas com Scroll Horizontal */
 .service-tabs {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
     border-bottom: 2px solid var(--grey-medium);
     margin-bottom: 16px;
-    /* Esconde a barra de scroll */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 .service-tabs::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
 }
 
 .tab-btn {
-    flex: 0 0 auto; /* Não encolhe, não cresce, tamanho automático */
+    flex: 0 0 auto;
     background: none;
     border: none;
     padding: 12px 16px;
@@ -166,18 +193,18 @@ h2 {
     color: var(--grey-dark);
     cursor: pointer;
     border-bottom: 3px solid transparent;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
-
+.tab-btn:hover {
+    background-color: var(--border-color);
+}
 .tab-btn.active {
     color: var(--tim-blue);
     font-weight: 700;
     border-bottom-color: var(--tim-blue);
 }
 
-.service-tab-content {
-    display: none;
-}
+.service-tab-content { display: none; }
 .service-tab-content.active {
     display: block;
     animation: fadeIn 0.3s ease-out;
@@ -187,13 +214,16 @@ h2 {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Estilo do Acordeão */
 .accordion-item {
     background-color: var(--white);
     border-radius: 8px;
     margin-bottom: 8px;
     border: 1px solid var(--border-color);
-    overflow: hidden; /* para o border-radius funcionar nos filhos */
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+.accordion-item:hover {
+     box-shadow: var(--shadow-hover);
 }
 
 .accordion-header {
@@ -207,18 +237,13 @@ h2 {
     cursor: pointer;
     text-align: left;
 }
-.accordion-header h4 {
-    font-size: 1rem;
-    font-weight: 500;
-}
+.accordion-header h4 { font-size: 1rem; font-weight: 500; }
 .accordion-header .icon {
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--tim-blue);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease-in-out;
 }
-
-/* Estilo do acordeão aberto */
 .accordion-item.open .accordion-header .icon {
     transform: rotate(45deg);
 }
@@ -231,15 +256,75 @@ h2 {
 
 .service-link {
     display: block;
-    padding: 12px 0;
+    padding: 12px 8px;
     color: var(--tim-blue-dark);
     text-decoration: none;
     font-size: 0.95rem;
     border-bottom: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: background-color 0.15s ease, padding-left 0.15s ease;
 }
-.service-link:last-child {
-    border-bottom: none;
-}
+.service-link:last-child { border-bottom: none; }
 .service-link:hover {
     font-weight: 500;
+    background-color: #f4f7f6;
+    padding-left: 12px;
+}
+
+
+/* =========================================
+   6. RESPONSIVIDADE (Tablets e Desktops)
+   ========================================= */
+
+/* --- Layout de Tablet --- */
+@media (min-width: 768px) {
+    .container {
+        max-width: 800px; /* Aumenta a largura do conteúdo */
+        padding: 24px;
+    }
+    .card {
+        padding: 24px;
+    }
+    .line-card {
+        padding: 20px;
+    }
+    .main-header {
+        padding: 14px 24px;
+    }
+}
+
+
+/* --- Layout de Desktop --- */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px; /* Largura máxima para desktop */
+    }
+
+    /* A MÁGICA ACONTECE AQUI */
+    .step-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 3fr; /* Coluna 1 (40%) e Coluna 2 (60%) */
+        gap: 24px; /* Espaço entre as colunas */
+        align-items: flex-start; /* Alinha os cards no topo */
+    }
+
+    .step {
+        margin-top: 0; /* Reseta a margem, pois o 'gap' do grid já faz isso */
+    }
+
+    /* Faz a segunda coluna (serviços) "grudar" no topo ao rolar
+       a lista de números (se ela for muito grande) */
+    #step-2 {
+        position: sticky;
+        top: 100px; /* (altura do header + padding) */
+    }
+    
+    /* Na aba de serviços, não precisa mais do scroll horizontal */
+    .service-tabs {
+        overflow-x: hidden;
+        flex-wrap: wrap; /* As abas que não couberem vão para a linha de baixo */
+    }
+    .tab-btn {
+        flex: none; /* Tamanho automático */
+    }
 }
