@@ -1,503 +1,93 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Infográfico: Análise de Carteira de Investimentos com Gemini</title>
-   <script src="https://cdn.tailwindcss.com"></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-   <script type="module">
-       import { GoogleGenerativeAI } from "https://cdn.jsdelivr.net/npm/@google/generative-ai@0.1.1/dist/index.js";
-      
-       // Substitua 'YOUR_GEMINI_API_KEY' pela sua chave da API real do Gemini
-       const API_KEY = 'YOUR_GEMINI_API_KEY';
-      
-       let genAI;
-       let model;
-
-
-       if (API_KEY && API_KEY !== 'YOUR_GEMINI_API_KEY') {
-           genAI = new GoogleGenerativeAI(API_KEY);
-           model = genAI.getGenerativeModel({ model: "gemini-pro" });
-       }
-
-
-       async function generateText(prompt) {
-           if (!model) {
-               console.error("API Key do Gemini não configurada.");
-               return "API Key do Gemini não configurada. Insira sua chave para habilitar a IA.";
-           }
-           try {
-               const result = await model.generateContent(prompt);
-               const response = await result.response;
-               return response.text();
-           } catch (error) {
-               console.error("Erro ao chamar a API Gemini:", error);
-               return "Não foi possível gerar a análise no momento. Verifique sua chave de API ou tente novamente mais tarde.";
-           }
-       }
-
-
-       window.generateText = generateText;
-   </script>
-   <style>
-       body {
-           font-family: 'Roboto', sans-serif;
-       }
-       .loading-spinner {
-           border: 4px solid rgba(0, 0, 0, 0.1);
-           border-left-color: #118AB2;
-           border-radius: 50%;
-           width: 24px;
-           height: 24px;
-           animation: spin 1s linear infinite;
-           display: inline-block;
-           vertical-align: middle;
-           margin-left: 8px;
-       }
-       @keyframes spin {
-           to { transform: rotate(360deg); }
-       }
-   </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIM Sales - Redesign</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
 
+    <header class="main-header">
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 115 115" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="115" height="115" rx="12" fill="white"/><path d="M24.8182 34H36.4545V81H24.8182V34ZM50.0909 34H61.7273V81H50.0909V34ZM75.3636 34H86.8182V48.7273H75.3636V34ZM75.3636 66.2727H86.8182V81H75.3636V66.2727Z" fill="#004C97"/></svg>
+            <span>Sales</span>
+        </div>
+        <div class="user-info">
+            <span>T3737219</span>
+            <div class="user-avatar">👤</div>
+        </div>
+    </header>
 
-   <div class="container mx-auto p-4 md:p-8">
+    <main class="container">
+        
+        <nav class="tab-nav">
+            <button class="tab-link active" data-tab="tab-search">Pesquisar Cliente</button>
+            <button class="tab-link" data-tab="tab-gfa">GFA (Fila)</button>
+        </nav>
 
+        <div class="tab-content active" id="tab-search">
+            <div class="card">
+                <h2>🔍 Pesquise o Cliente</h2>
+                <form id="search-form">
+                    
+                    <div class="search-options">
+                        <h3>Buscar por:</h3>
+                        <div class="radio-group">
+                            <input type="radio" id="search-cpf" name="search-type" value="CPF/CNPJ" checked>
+                            <label for="search-cpf">CPF/CNPJ</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="search-numero" name="search-type" value="Nº de Acesso">
+                            <label for="search-numero">Nº de Acesso</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="search-doc" name="search-type" value="Doc. Estrangeiro">
+                            <label for="search-doc">Doc. Estrangeiro</label>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group floating">
+                        <input type="tel" id="search-value" class="input-field" placeholder=" " required>
+                        <label for="search-value" class="input-label">CPF/CNPJ</label>
+                    </div>
 
-       <header class="text-center mb-12">
-           <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Análise Inteligente da Carteira de Investimentos</h1>
-           <p class="text-xl text-gray-600">Evolução de Jan/2021 a Out/2025 com insights do Gemini AI</p>
-       </header>
+                    <button type="submit" class="btn btn-primary">BUSCAR</button>
+                </form>
+            </div>
+        </div>
 
+        <div class="tab-content" id="tab-gfa">
+            <div class="card">
+                <h2>👤 GFA</h2>
+                <form>
+                    <div class="input-group floating">
+                        <input type="text" id="gfa-senha" class="input-field" placeholder=" ">
+                        <label for="gfa-senha" class="input-label">Senha</label>
+                    </div>
+                    <div class="input-group floating">
+                        <input type="text" id="gfa-chamada" class="input-field" placeholder=" ">
+                        <label for="gfa-chamada" class="input-label">Chamada</label>
+                    </div>
+                    <div class="input-group floating">
+                        <input type="text" id="gfa-nome" class="input-field" placeholder=" ">
+                        <label for="gfa-nome" class="input-label">Nome</label>
+                    </div>
+                    <div class="input-group floating">
+                        <input type="tel" id="gfa-telefone" class="input-field" placeholder=" ">
+                        <label for="gfa-telefone" class="input-label">Telefone</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Chamar Senha</button>
+                </form>
+            </div>
+        </div>
 
-       <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-
-           <div class="md:col-span-2 bg-white rounded-lg shadow-lg p-6 text-center border-t-4 border-[#118AB2]">
-               <h2 class="text-2xl font-semibold text-gray-700 mb-2">Saldo Final em Out/2025</h2>
-               <p class="text-6xl font-bold text-[#118AB2]">R$ 3.942,96</p>
-               <p class="text-gray-600 mt-2">Este é o valor total consolidado da sua carteira ao final do período de análise.</p>
-           </div>
-
-
-           <div class="md:col-span-2 bg-white rounded-lg shadow-lg p-6">
-               <h2 class="text-2xl font-semibold text-gray-700 mb-2 text-center">Crescimento Total da Carteira</h2>
-               <p class="text-gray-600 text-center mb-4">O gráfico abaixo mostra a progressão constante do seu saldo final em comparação com o total de aportes (Total Investido) ao longo dos meses.</p>
-               <div class="w-full max-w-4xl mx-auto h-80 md:h-96 max-h-[500px] relative">
-                   <canvas id="growthChart"></canvas>
-               </div>
-           </div>
-
-
-           <div class="bg-white rounded-lg shadow-lg p-6">
-               <h2 class="text-2xl font-semibold text-gray-700 mb-2 text-center">Composição da Carteira (Out/2025)</h2>
-               <p class="text-gray-600 text-center mb-4">Veja como seus investimentos estavam distribuídos entre as diferentes classes de ativos no último mês.</p>
-               <div class="w-full max-w-xl mx-auto h-80 md:h-96 max-h-[400px] relative">
-                   <canvas id="compositionChart"></canvas>
-               </div>
-               <div class="mt-4 p-3 bg-blue-50 rounded-md border border-blue-200">
-                   <h3 class="font-semibold text-blue-800 flex items-center">
-                       <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                       Sugestão Gemini:
-                       <span id="geminiSuggestionSpinner" class="loading-spinner hidden"></span>
-                   </h3>
-                   <p id="geminiSuggestion" class="text-blue-700 text-sm mt-1">Gerando sugestão...</p>
-               </div>
-           </div>
-
-
-           <div class="bg-white rounded-lg shadow-lg p-6">
-               <h2 class="text-2xl font-semibold text-gray-700 mb-2 text-center">Rentabilidade Mensal</h2>
-               <p class="text-gray-600 text-center mb-4">Este gráfico destaca a performance percentual da carteira a cada mês.</p>
-               <div class="w-full max-w-xl mx-auto h-80 md:h-96 max-h-[400px] relative">
-                   <canvas id="rentabilidadeChart"></canvas>
-               </div>
-               <div class="mt-4 p-3 bg-purple-50 rounded-md border border-purple-200">
-                   <h3 class="font-semibold text-purple-800 flex items-center">
-                       <svg class="w-5 h-5 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6c0 1.255.454 2.457 1.258 3.376L10 18.25l4.742-6.874A6 6 0 0010 2zm-1.72 9.25a.75.75 0 01-1.06 1.06l-4.25-4.25a.75.75 0 011.06-1.06l3.72 3.72a.75.75 0 010 1.06zM10 5a1 1 0 00-1 1v1a1 1 0 102 0V6a1 1 0 00-1-1zm3 3a1 1 0 00-1 1v1a1 1 0 102 0V9a1 1 0 00-1-1z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
-                       Análise Gemini da Rentabilidade:
-                       <span id="geminiRentabilidadeSpinner" class="loading-spinner hidden"></span>
-                   </h3>
-                   <p id="geminiRentabilidade" class="text-purple-700 text-sm mt-1">Gerando análise...</p>
-               </div>
-           </div>
-
-
-           <div class="md:col-span-2 bg-white rounded-lg shadow-lg p-6">
-               <h2 class="text-2xl font-semibold text-gray-700 mb-2 text-center">Evolução por Classe de Ativo</h2>
-               <p class="text-gray-600 text-center mb-4">Analise o crescimento de cada ativo individualmente. O gráfico de barras empilhadas mostra como cada classe contribuiu para o "Total Investido" mês a mês.</p>
-               <div class="w-full max-w-4xl mx-auto h-80 md:h-96 max-h-[500px] relative">
-                   <canvas id="stackedBarChart"></canvas>
-               </div>
-           </div>
-
-
-           <div class="md:col-span-2 bg-white rounded-lg shadow-lg p-6 mt-8 border-t-4 border-gray-400">
-               <h2 class="text-2xl font-semibold text-gray-700 mb-2 text-center">Resumo Executivo (Gerado por Gemini AI)</h2>
-               <div class="p-4 bg-gray-50 rounded-md border border-gray-200">
-                   <p id="geminiExecutiveSummary" class="text-gray-700 leading-relaxed flex items-center">
-                       <span id="geminiSummarySpinner" class="loading-spinner"></span>
-                       <span class="ml-2">Gerando resumo...</span>
-                   </p>
-               </div>
-           </div>
-
-
-       </main>
-
-
-       <footer class="text-center mt-12 text-gray-500 text-sm">
-           <p>Este infográfico foi gerado com base nos dados fornecidos e aprimorado com insights do Gemini AI.</p>
-       </footer>
-
-
-   </div>
-
-
-   <script>
-       const rawData = [
-           "Jan/2021;500,25;300,10;200,50;150,75;50,20;1201,80;0,5;1207,81",
-           "Fev/2021;520,40;310,25;205,35;160,10;55,40;1251,50;0,6;1258,51",
-           "Mar/2021;540,10;320,55;210,50;170,75;60,10;1301,95;0,8;1311,30",
-           "Abr/2021;560,30;330,15;215,75;180,25;62,50;1348,95;0,7;1358,39",
-           "Mai/2021;580,15;340,25;220,10;190,50;65,30;1395,30;0,6;1403,57",
-           "Jun/2021;600,20;350,30;225,50;200,75;68,50;1444,25;0,9;1457,34",
-           "Jul/2021;620,50;360,40;230,60;210,40;70,25;1492,15;0,8;1503,94",
-           "Ago/2021;640,10;370,55;235,75;220,50;73,10;1539,99;0,7;1550,80",
-           "Set/2021;660,25;380,30;240,50;230,25;75,40;1586,70;0,6;1596,21",
-           "Out/2021;680,50;390,10;245,75;240,50;78,10;1634,95;0,5;1643,07",
-           "Nov/2021;700,20;400,25;250,50;250,75;80,50;1681,70;0,6;1691,79",
-           "Dez/2021;720,35;410,15;255,25;260,50;82,75;1728,95;0,7;1740,06",
-           "Jan/2022;740,10;420,40;260,50;270,25;85,20;1776,45;0,6;1787,12",
-           "Fev/2022;760,25;430,25;265,75;280,50;88,10;1824,85;0,7;1837,74",
-           "Mar/2022;780,50;440,10;270,50;290,75;90,50;1872,35;0,8;1887,90",
-           "Abr/2022;800,15;450,30;275,25;300,10;93,20;1918,95;0,7;1932,44",
-           "Mai/2022;820,40;460,50;280,50;310,25;95,50;1966,15;0,6;1977,06",
-           "Jun/2022;840,25;470,25;285,75;320,50;98,20;2014,95;0,9;2033,91",
-           "Jul/2022;860,50;480,40;290,50;330,25;100,50;2062,15;0,8;2078,83",
-           "Ago/2022;880,10;490,55;295,75;340,50;103,25;2109,15;0,7;2124,48",
-           "Set/2022;900,25;500,30;300,50;350,75;105,50;2156,30;0,6;2169,58",
-           "Out/2022;920,50;510,10;305,75;360,50;108,10;2304,95;0,5;2316,48",
-           "Nov/2022;940,20;520,25;310,50;370,75;110,50;2252,20;0,6;2265,61",
-           "Dez/2022;960,35;530,15;315,25;380,50;112,75;2298,95;0,7;2315,06",
-           "Jan/2023;980,10;540,40;320,50;390,25;115,20;2346,45;0,6;2360,08",
-           "Fev/2023;1000,25;550,25;325,75;400,50;118,10;2394,85;0,7;2411,51",
-           "Mar/2023;1020,50;560,10;330,50;410,75;120,50;2442,35;0,8;2461,10",
-           "Abr/2023;1040,15;570,30;335,25;420,10;123,20;2488,95;0,7;2506,92",
-           "Mai/2023;1060,40;580,50;340,50;430,25;125,50;2536,15;0,6;2551,38",
-           "Jun/2023;1080,25;590,25;345,75;440,50;128,20;2584,95;0,9;2611,61",
-           "Jul/2023;1100,50;600,40;350,50;450,25;130,50;2631,15;0,8;2652,70",
-MAIN
-           "Ago/2023;1120,10;610,55;355,75;460,50;133,25;2679,15;0,7;2698,70",
-           "Set/2023;1140,25;620,30;360,50;470,75;135,50;2726,30;0,6;2742,77",
-           "Out/2023;1160,50;630,10;365,75;480,50;138,10;2774,95;0,5;2788,82",
-           "Nov/2023;1180,20;640,25;370,50;490,75;140,50;2822,20;0,6;2839,53",
-           "Dez/2023;1200,35;650,15;375,25;500,50;142,75;2868,95;0,7;2889,88",
-           "Jan/2024;1220,10;660,40;380,50;510,25;145,20;2916,45;0,6;2933,75",
-           "Fev/2024;1240,25;670,25;385,75;520,50;148,10;2964,85;0,7;2985,34",
-           "Mar/2024;1260,50;680,10;390,50;530,75;150,50;3012,35;0,8;3036,25",
-           "Abr/2024;1280,15;690,30;395,25;540,10;153,20;3058,95;0,7;3079,02",
-           "Mai/2024;1300,40;700,50;400,50;550,25;155,50;3106,15;0,6;3124,79",
-           "Jun/2024;1320,25;710,25;405,75;560,50;158,20;3154,95;0,9;3183,39",
-           "Jul/2024;1340,50;720,40;410,50;570,25;160,50;3201,15;0,8;3226,96",
-           "Ago/2024;1360,10;730,55;415,75;580,50;163,25;3249,15;0,7;3272,92",
-           "Set/2024;1380,25;740,30;420,50;590,75;165,50;3296,30;0,6;3316,08",
-           "Out/2024;1400,50;750,10;425,75;600,50;168,10;3344,95;0,5;3361,67",
-           "Nov/2024;1420,20;760,25;430,50;610,75;170,50;3392,20;0,6;3412,75",
-           "Dez/2024;1440,35;770,15;435,25;620,50;172,75;3438,95;0,7;3462,22",
-SERVICE
-           "Jan/2025;1460,10;780,40;440,50;630,25;175,20;3486,45;0,6;3507,74",
-           "Fev/2025;1480,25;790,25;445,75;640,50;178,10;3534,85;0,7;3559,34",
-           "Mar/2025;1500,50;800,10;450,50;650,75;180,50;3582,35;0,8;3611,10",
-           "Abr/2025;1520,15;810,30;455,25;660,10;183,20;3628,95;0,7;3654,01",
-           "Mai/2025;1540,40;820,50;460,50;670,25;185,50;3676,15;0,6;3697,82",
-           "Jun/2025;1560,25;830,25;465,75;680,50;188,20;3724,95;0,9;3758,19",
-           "Jul/2025;1580,50;840,40;470,50;690,25;190,50;3771,15;0,8;3801,72",
-           "Ago/2025;1600,10;850,55;475,75;700,50;193,25;3819,15;0,7;3845,48",
-           "Set/2025;1620,25;860,30;480,50;710,75;195,50;3866,30;0,6;3890,50",
-           "Out/2025;1640,50;870,10;485,75;720,50;198,10;3914,95;0,7;3942,96"
-       ];
-      
-       // Função para converter string numérica brasileira (ex: "1.234,50") para número (ex: 1234.50)
-       function parseBrazilianNumber(numStr) {
-           return parseFloat(numStr.replace(/\./g, '').replace(',', '.'));
-       }
-
-
-       const investmentData = rawData.map(row => {
-           const cols = row.split(';');
-           return {
-               mesAno: cols[0],
-               cdb: parseBrazilianNumber(cols[1]),
-               tesouroSelic: parseBrazilianNumber(cols[2]),
-               fundosRF: parseBrazilianNumber(cols[3]),
-               acoes: parseBrazilianNumber(cols[4]),
-               cripto: parseBrazilianNumber(cols[5]),
-               totalInvestido: parseBrazilianNumber(cols[6]),
-               rentabilidadeMes: parseBrazilianNumber(cols[7]),
-               saldoFinal: parseBrazilianNumber(cols[8])
-           };
-       });
-
-
-       const palette = {
-           red: '#EF476F',
-           orange: '#F78C6B',
-           yellow: '#FFD166',
-           green: '#06D6A0',
-           blue: '#118AB2',
-           lightGray: '#F1F5F9',
-           darkGray: '#334155',
-           purple: '#8a2be2'
-       };
-
-
-       const chartLabels = investmentData.map(d => d.mesAno);
-
-
-       const tooltipTitleCallback = {
-           plugins: {
-               tooltip: {
-                   callbacks: {
-                       title: function(tooltipItems) {
-                           const item = tooltipItems[0];
-                           let label = item.chart.data.labels[item.dataIndex];
-                           if (Array.isArray(label)) {
-                               return label.join(' ');
-                           } else {
-                               return label;
-                           }
-                       }
-                   }
-               }
-           }
-       };
-
-
-       window.onload = function() {
-          
-           const growthCtx = document.getElementById('growthChart').getContext('2d');
-           new Chart(growthCtx, {
-               type: 'line',
-               data: {
-                   labels: chartLabels,
-                   datasets: [
-                       {
-                           label: 'Saldo Final (R$)',
-                           data: investmentData.map(d => d.saldoFinal),
-                           borderColor: palette.blue,
-                           backgroundColor: palette.blue + '33',
-                           fill: true,
-                           tension: 0.1
-                       },
-                       {
-                           label: 'Total Investido (R$)',
-                           data: investmentData.map(d => d.totalInvestido),
-                           borderColor: palette.green,
-                           backgroundColor: 'transparent',
-                           borderDash: [5, 5],
-                           tension: 0.1
-                       }
-                   ]
-               },
-               options: {
-                   responsive: true,
-                   maintainAspectRatio: false,
-                   scales: {
-                       y: {
-                           ticks: {
-                               callback: value => `R$ ${value.toFixed(2)}`
-                           }
-                       }
-                   },
-                   ...tooltipTitleCallback
-               }
-           });
-
-
-           const finalData = investmentData[investmentData.length - 1];
-           const compositionLabels = ['CDB', 'Tesouro Selic', 'Fundos RF', 'Ações', 'Cripto'];
-           const compositionData = [
-               finalData.cdb,
-               finalData.tesouroSelic,
-               finalData.fundosRF,
-               finalData.acoes,
-               finalData.cripto
-           ];
-          
-           const compositionCtx = document.getElementById('compositionChart').getContext('2d');
-           new Chart(compositionCtx, {
-               type: 'doughnut',
-               data: {
-                   labels: compositionLabels,
-                   datasets: [{
-                       data: compositionData,
-                       backgroundColor: [
-                           palette.blue,
-                           palette.green,
-                           palette.yellow,
-                           palette.orange,
-                           palette.red
-                       ],
-                       hoverOffset: 4
-                   }]
-               },
-               options: {
-                   responsive: true,
-                   maintainAspectRatio: false,
-                   ...tooltipTitleCallback,
-                   plugins: {
-                       ...tooltipTitleCallback.plugins,
-                       tooltip: {
-                           ...tooltipTitleCallback.plugins.tooltip,
-                           callbacks: {
-                               ...tooltipTitleCallback.plugins.tooltip.callbacks,
-                               label: function(context) {
-                                   let label = context.label || '';
-                                   let value = context.parsed || 0;
-                                   let sum = context.dataset.data.reduce((a, b) => a + b, 0);
-                                   let percentage = ((value / sum) * 100).toFixed(1) + '%';
-                                   return `${label}: R$ ${value.toFixed(2)} (${percentage})`;
-                               }
-                           }
-                       }
-                   }
-               }
-           });
-
-
-           const rentabilidadeCtx = document.getElementById('rentabilidadeChart').getContext('2d');
-           new Chart(rentabilidadeCtx, {
-               type: 'bar',
-               data: {
-                   labels: chartLabels,
-                   datasets: [{
-                       label: 'Rentabilidade (%)',
-                       data: investmentData.map(d => d.rentabilidadeMes),
-                       backgroundColor: palette.yellow + 'CC',
-                       borderColor: palette.yellow,
-                       borderWidth: 1
-                   }]
-               },
-               options: {
-                   responsive: true,
-                   maintainAspectRatio: false,
-                   scales: {
-                       y: {
-                           ticks: {
-                               callback: value => `${value}%`
-                           }
-                       }
-                   },
-                   ...tooltipTitleCallback
-               }
-           });
-
-
-           const stackedBarCtx = document.getElementById('stackedBarChart').getContext('2d');
-           new Chart(stackedBarCtx, {
-               type: 'bar',
-               data: {
-                   labels: chartLabels,
-                   datasets: [
-                       { label: 'CDB', data: investmentData.map(d => d.cdb), backgroundColor: palette.blue },
-                       { label: 'Tesouro Selic', data: investmentData.map(d => d.tesouroSelic), backgroundColor: palette.green },
-                       { label: 'Fundos RF', data: investmentData.map(d => d.fundosRF), backgroundColor: palette.yellow },
-                       { label: 'Ações', data: investmentData.map(d => d.acoes), backgroundColor: palette.orange },
-                       { label: 'Cripto', data: investmentData.map(d => d.cripto), backgroundColor: palette.red }
-                   ]
-               },
-               options: {
-                   responsive: true,
-                   maintainAspectRatio: false,
-                   scales: {
-                       x: { stacked: true },
-                       y: {
-                           stacked: true,
-                           ticks: {
-                               callback: value => `R$ ${value.toFixed(0)}`
-                           }
-                       }
-                   },
-                   ...tooltipTitleCallback
-               }
-           });
-
-
-           // --- Integração Gemini API ---
-
-
-           // 1. Sugestão de Ação Baseada na Composição da Carteira
-           async function getGeminiSuggestion() {
-               document.getElementById('geminiSuggestionSpinner').classList.remove('hidden');
-               const prompt = `Analise a seguinte composição de carteira de investimentos (valores em R$) em Outubro de 2025: CDB: ${finalData.cdb}, Tesouro Selic: ${finalData.tesouroSelic}, Fundos RF: ${finalData.fundosRF}, Ações: ${finalData.acoes}, Cripto: ${finalData.cripto}. Forneça uma sugestão de ação concisa e geral para o investidor. Exemplo: "Considere aumentar a exposição em renda variável." ou "Mantenha o foco em ativos de menor risco." Responda em português, com no máximo 2 frases.`;
-               const suggestion = await window.generateText(prompt);
-               document.getElementById('geminiSuggestion').innerText = suggestion.trim();
-               document.getElementById('geminiSuggestionSpinner').classList.add('hidden');
-           }
-
-
-           // 2. Análise de Sentimento da Rentabilidade Mensal (Otimizada)
-           async function getGeminiRentabilidadeAnalysis() {
-               document.getElementById('geminiRentabilidadeSpinner').classList.remove('hidden');
-               const rentabilidadeList = document.getElementById('geminiRentabilidade');
-              
-               const rentabilidades = investmentData.map(d => d.rentabilidadeMes);
-               const maxRentabilidade = Math.max(...rentabilidades);
-               const minRentabilidade = Math.min(...rentabilidades);
-               const avgRentabilidade = (rentabilidades.reduce((a, b) => a + b, 0) / rentabilidades.length).toFixed(2);
-
-
-               const prompt = `Analise a performance de rentabilidade mensal de uma carteira de Jan/2021 a Out/2025.
-               - A rentabilidade média foi de ${avgRentabilidade}%.
-               - A rentabilidade máxima atingida foi de ${maxRentabilidade}%.
-               - A rentabilidade mínima foi de ${minRentabilidade}%.
-               - A série de rentabilidades foi: ${rentabilidades.slice(0, 10).join(', ')}... (e assim por diante).
-               Faça um breve resumo (2-3 frases) sobre a estabilidade e os picos de performance dessa carteira. Responda em português.`;
-              
-               const analysis = await window.generateText(prompt);
-               rentabilidadeList.innerText = analysis.trim();
-               document.getElementById('geminiRentabilidadeSpinner').classList.add('hidden');
-           }
-
-
-           // 3. Resumo Executivo Gerado por LLM (Otimizado)
-           async function getGeminiExecutiveSummary() {
-               const summaryElement = document.getElementById('geminiExecutiveSummary');
-               const summaryTextSpan = summaryElement.querySelector('span:last-child');
-               const summarySpinner = document.getElementById('geminiSummarySpinner');
-
-
-               summarySpinner.classList.remove('hidden');
-               summaryTextSpan.innerText = 'Gerando resumo...';
-
-
-               const firstData = investmentData[0];
-              
-               const prompt = `Com base nos seguintes dados de investimento:
-               - Início (Jan/2021): Saldo Final R$ ${firstData.saldoFinal}, Total Investido R$ ${firstData.totalInvestido}.
-               - Fim (Out/2025): Saldo Final R$ ${finalData.saldoFinal}, Total Investido R$ ${finalData.totalInvestido}.
-              
-               Gere um resumo executivo da performance da carteira de Jan/2021 a Out/2025. Destaque o crescimento total do patrimônio em relação ao total investido. O tom deve ser profissional e conciso. Responda em português. Formate o resumo como um parágrafo contínuo.`;
-              
-               const summary = await window.generateText(prompt);
-               summaryTextSpan.innerText = summary.trim();
-               summarySpinner.classList.add('hidden');
-           }
-
-
-           getGeminiSuggestion();
-           getGeminiRentabilidadeAnalysis();
-           getGeminiExecutiveSummary();
-       };
-   </script>
+    </main>
+    
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
