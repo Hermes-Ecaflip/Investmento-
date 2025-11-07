@@ -36,6 +36,9 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Fica no topo ao rolar */
+    top: 0;
+    z-index: 100;
 }
 
 .main-header .logo {
@@ -75,6 +78,7 @@ body {
     padding: 20px 16px;
     max-width: 600px;
     margin: 0 auto; /* Centra em telas maiores */
+    transition: max-width 0.3s ease;
 }
 
 .tab-nav {
@@ -131,6 +135,7 @@ body {
     margin-bottom: 24px;
     color: var(--tim-blue);
     font-size: 1.25rem;
+    transition: font-size 0.3s ease;
 }
 
 /* Opções de Rádio (Busca) */
@@ -147,7 +152,7 @@ body {
     display: inline-flex;
     align-items: center;
     margin-right: 15px;
-    margin-bottom: 8px;
+    margin-bottom: 8px; /* Permite quebrar linha em telas pequenas */
 }
 .radio-group input[type="radio"] {
     accent-color: var(--tim-blue); /* Moderno, cor do "check" */
@@ -186,7 +191,6 @@ body {
     pointer-events: none;
 }
 
-/* A mágica do rótulo flutuante */
 .input-field:focus + .input-label,
 .input-field:not(:placeholder-shown) + .input-label {
     top: -10px;
@@ -226,4 +230,47 @@ body {
 
 .btn:active {
     transform: scale(0.98);
+}
+
+
+/* =========================================
+   5. MELHORIA: Responsividade (Telas Maiores)
+   ========================================= */
+
+/* 'min-width: 768px' afeta tablets e desktops */
+@media (min-width: 768px) {
+
+    .container {
+        max-width: 700px; /* O conteúdo fica um pouco mais largo */
+        padding: 32px 24px;
+    }
+
+    .card {
+        padding: 32px; /* Mais espaço interno no card */
+    }
+
+    .card h2 {
+        font-size: 1.5rem; /* Título maior */
+    }
+
+    /* Alinha as opções de busca horizontalmente */
+    .search-options {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    .search-options h3 {
+        margin-bottom: 0; /* Remove a margem de empilhamento */
+        margin-right: 16px;
+        flex-shrink: 0; /* Impede 'Buscar por:' de quebrar */
+    }
+
+    .radio-group {
+        margin-bottom: 0; /* Remove a margem de empilhamento */
+    }
+
+    .tab-link {
+        font-size: 1rem;
+    }
 }
