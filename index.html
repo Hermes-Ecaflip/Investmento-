@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/index.css"> 
 </head>
 <body>
 
@@ -32,7 +32,8 @@
         <div class="tab-content active" id="tab-search">
             <div class="card">
                 <h2>🔍 Pesquise o Cliente</h2>
-                <form id="search-form">
+                
+                <form id="search-form" action="atendimento.html" method="GET">
                     
                     <div class="search-options">
                         <h3>Buscar por:</h3>
@@ -51,13 +52,12 @@
                     </div>
                     
                     <div class="input-group floating">
-                        <input type="tel" id="search-value" class="input-field" placeholder=" " required>
+                        <input type="tel" id="search-value" name="query" class="input-field" placeholder=" " required>
                         <label for="search-value" class="input-label">CPF/CNPJ</label>
                     </div>
 
-                    <a href="atendimento.html">
-                        <button type="submit" class="btn btn-primary">BUSCAR</button>
-                    </a>
+                    <button type="submit" class="btn btn-primary">BUSCAR</button>
+                    
                 </form>
             </div>
         </div>
@@ -90,6 +90,6 @@
 
     </main>
     
-    <script src="scripts/script.js"></script>
+    <script src="scripts/script.js"></script> 
 </body>
 </html>
