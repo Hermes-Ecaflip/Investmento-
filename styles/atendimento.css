@@ -1,0 +1,245 @@
+/* =================================
+   1. Variáveis Globais e Reset (Reutilizado)
+   ================================= */
+:root {
+    --tim-blue: #004C97;
+    --tim-blue-dark: #003366;
+    --white: #ffffff;
+    --grey-light: #f4f7f6;
+    --grey-medium: #dfe3e6;
+    --grey-dark: #8c8c8c;
+    --text-dark: #333;
+    --success: #28a745;
+    --border-color: #eee;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--grey-light);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+h2 {
+    font-size: 1.25rem;
+    color: var(--tim-blue);
+    margin-bottom: 16px;
+}
+
+/* =================================
+   2. Cabeçalho (Reutilizado)
+   ================================= */
+.main-header {
+    background-color: var(--tim-blue);
+    color: var(--white);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Fixo no topo */
+    top: 0;
+    z-index: 100;
+}
+.main-header .logo { display: flex; align-items: center; font-weight: 700; font-size: 1.2rem; }
+.main-header .logo svg { margin-right: 8px; }
+.main-header .user-info { display: flex; align-items: center; }
+.main-header .user-avatar { width: 32px; height: 32px; background-color: var(--grey-medium); color: var(--tim-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+
+/* =================================
+   3. Layout e Seções
+   ================================= */
+.container {
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.step {
+    margin-top: 24px;
+}
+
+.customer-context {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+.customer-context p { margin: 4px 0; }
+
+/* =================================
+   4. Cards de Linha (PASSO 1)
+   ================================= */
+.line-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    margin-bottom: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.line-card.selected {
+    border-color: var(--tim-blue);
+    box-shadow: 0 0 10px rgba(0, 76, 151, 0.3);
+}
+
+.line-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.line-card-header h3 {
+    color: var(--tim-blue);
+    font-size: 1.1rem;
+}
+.line-card-header input[type="radio"] {
+    accent-color: var(--tim-blue);
+    /* Esconde o rádio, mas o JS o marcará */
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.line-card-body {
+    font-size: 0.9rem;
+    padding: 12px 0;
+}
+.line-card-body .status-active {
+    color: var(--success);
+    font-weight: 500;
+}
+
+.line-card-footer .details-toggle {
+    font-size: 0.8rem;
+    color: var(--tim-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+.line-card-footer .hidden-details {
+    display: none;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+    color: #555;
+    line-height: 1.6;
+}
+
+/* =================================
+   5. Abas e Acordeão de Serviço (PASSO 2)
+   ================================= */
+
+/* Abas com Scroll Horizontal */
+.service-tabs {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 2px solid var(--grey-medium);
+    margin-bottom: 16px;
+    /* Esconde a barra de scroll */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.service-tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.tab-btn {
+    flex: 0 0 auto; /* Não encolhe, não cresce, tamanho automático */
+    background: none;
+    border: none;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--grey-dark);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-btn.active {
+    color: var(--tim-blue);
+    font-weight: 700;
+    border-bottom-color: var(--tim-blue);
+}
+
+.service-tab-content {
+    display: none;
+}
+.service-tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo do Acordeão */
+.accordion-item {
+    background-color: var(--white);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border-color);
+    overflow: hidden; /* para o border-radius funcionar nos filhos */
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+.accordion-header h4 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+.accordion-header .icon {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--tim-blue);
+    transition: transform 0.2s ease;
+}
+
+/* Estilo do acordeão aberto */
+.accordion-item.open .accordion-header .icon {
+    transform: rotate(45deg);
+}
+
+.accordion-body {
+    display: none;
+    padding: 0 16px 16px 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.service-link {
+    display: block;
+    padding: 12px 0;
+    color: var(--tim-blue-dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.service-link:last-child {
+    border-bottom: none;
+}
+.service-link:hover {
+    font-weight: 500;
+}
